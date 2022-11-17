@@ -1,0 +1,34 @@
+ 
+# Only spawn infront of player. (Cancel entity spawns that you can't see.). Keep it true if you have a large online player base.
+realistic: true
+
+# There is so much more that can be considered transparent https://minecraft.fandom.com/wiki/Opacity
+transparent-blocks:
+ - AIR
+ - CAVE_AIR
+ - VOID_AIR
+ - WATER
+ - TRIPWIRE
+ - TRIPWIRE_HOOK
+ - GLASS
+ - STAINED_GLASS 
+ - STAINED_GLASS_PANE 
+ - TORCH
+ - REDSTONE_TORCH
+ - REDSTONE_WIRE
+ - CAVE_VINES
+ - CAVE_VINES_PLANT
+ - TWISTING_VINES
+ - TWISTING_VINES_PLANT
+ - VINE
+ - WEEPING_VINES
+ - WEEPING_VINES_PLANT
+ - SUGAR_CANE
+     
+# EntityTypes section https://minecraft.fandom.com/wiki/Mob
+cancel-spawn:
+ - ZOMBIE
+ 
+abort-spawn:
+ - CREEPER
+   
