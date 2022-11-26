@@ -24,7 +24,7 @@ public class EntityOnView extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		YamlWrapper yamlWrapper = new YamlWrapper(this, getDataFolder(), "config", true, true);    
-		setConfig(yamlWrapper.getConfig());
+		config = yamlWrapper.getConfig();
 		
 		config.getStringList("transparent-blocks").forEach(string -> transparentBlocks.add(Material.valueOf(string)));
 		realistic = config.getBoolean("realistic");
@@ -38,10 +38,6 @@ public class EntityOnView extends JavaPlugin{
 		else {
 			getServer().getPluginManager().registerEvents(new PreCreatureSpawnListener(cancelSpawn, abortSpawn), this);
 		}
-	}
-	
-	public static void setConfig(FileConfiguration value) {
-		config = value;
 	}
 	
 	@Override
