@@ -2,6 +2,7 @@ package com.h14turkiye.entityOnView.listeners;
 
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
+import com.h14turkiye.entityOnView.EntityOnView;
 import com.h14turkiye.entityOnView.ListenerUtilities;
 
 public class CreatureSpawnListener implements Listener{
@@ -19,7 +21,7 @@ public class CreatureSpawnListener implements Listener{
 	public CreatureSpawnListener(Set<EntityType> cancelSpawn) {
 		this.cancelSpawn = cancelSpawn;
 	}
-	
+
 	@EventHandler
 	public void spawnEventNatural(CreatureSpawnEvent event) {
 		if(event.getSpawnReason().equals(SpawnReason.NATURAL)) {
@@ -28,9 +30,10 @@ public class CreatureSpawnListener implements Listener{
 
 			if(nearestQualifiedPlayer == null && cancelSpawn.contains(event.getEntityType())) {
 				event.setCancelled(true);
+				if(EntityOnView.debug)
+					Bukkit.broadcastMessage(location.toString()+"-aborted");
 			}
 		}
+		
 	}
-
-	
 }

@@ -2,6 +2,8 @@
 # Only spawn infront of player. (Cancel entity spawns that you can't see.). Keep it true if you have a large online player base.
 realistic: true
 
+debug: false
+
 # There is so much more that can be considered transparent https://minecraft.fandom.com/wiki/Opacity
 transparent-blocks:
  - AIR

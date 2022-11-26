@@ -66,7 +66,7 @@ public class ListenerUtilities {
 		return loc.getWorld().getPlayers().stream().sorted((o1, o2) ->
 				Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc))
 		).filter( p -> {
-			if(p.getLocation().distanceSquared(loc)< 128) {
+			if(p.getLocation().distanceSquared(loc)< 128*128) {
 				return !(shouldCancel(p.getEyeLocation(), loc));
 			}
 			return false;
@@ -74,7 +74,7 @@ public class ListenerUtilities {
 	}
 
 	public static Boolean shouldCancel(Location origin, Location target) {
-		if(EntityOnView.realistic && isLookingTowards(origin, target, 90, 110))
+		if(EntityOnView.realistic && isLookingTowards(origin, target, 150, 110))
 		{
 			return false;
 		}
