@@ -8,7 +8,6 @@ import java.util.Set;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
@@ -49,45 +48,6 @@ public class ListenerUtilities {
 			break;
 		}
 		return blocks;
-	}
-
-	/**
-	 * Returns whether the origin can see the target location.
-	 */
-	public static boolean canSee(Location origin, Location target) {
-		return getLineOfSight(EntityOnView.transparentBlocks, 128, origin, target).isEmpty();
-	}
-
-	/**
-	 * Returns the closest qualified {@link Player} to a specific {@link Location}
-	 * @param loc The {@link Location} representing the origin to search from
-	 * @return The closest qualified {@link Player}, or {@code null}
-	 */
-	  
-	public static Player getNearestQualifiedPlayer(Location loc) {
-		return loc.getWorld().getPlayers().stream().sorted((o1, o2) ->
-				Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc))
-		).filter( p -> {
-			if(p.getLocation().distanceSquared(loc)< 128*128) {
-				return !(shouldCancel1(p.getEyeLocation(), loc));
-			}
-			return false;
-		}).filter(p -> !(shouldCancel2(p.getEyeLocation(), loc))).findAny().orElse(null);
-	}
-
-	public static Boolean shouldCancel1(Location origin, Location target) {
-		if(!EntityOnView.realistic)
-			return false;
-		if(isLookingTowards(origin, target, 150, 110))
-			return false;
-		return true;
-	}
-	
-	public static Boolean shouldCancel2(Location origin, Location target) {
-		if (!(canSee(origin, target))) {
-			return true;
-		}
-		return false;
 	}
 	
 	public static boolean isLookingTowards(Location origin, Location target, float yawLimit, float pitchLimit) {
