@@ -1,5 +1,5 @@
-# Only spawn infront of player. (Cancel entity spawns that you can't see.). Keep it true if you have a large online player base.
-realistic: true
+# Maximum distance to be checked whether there is blocks between entities. Max 120
+maxDistance: 64
 
 debug: false
 
