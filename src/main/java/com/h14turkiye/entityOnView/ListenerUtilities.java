@@ -38,14 +38,15 @@ public class ListenerUtilities {
 			maxDistance = 120;
 		}
 		ArrayList<Block> blocks = new ArrayList<>();
-		Iterator<Block> itr = new BlockIterator(target.getWorld(), origin.clone().toVector(), target.clone().toVector().subtract(origin.toVector()).normalize(), 0, maxDistance);
+		Iterator<Block> itr = new BlockIterator(target.getWorld(), origin.clone().add(0, -2, 0).toVector(), target.clone().toVector().subtract(origin.clone().add(0, -2, 0).toVector()).normalize(), 2, maxDistance);
 		while (itr.hasNext()) {
 			Block block = itr.next();
-			blocks.add(block);
-			Material material = block.getType();
-			if (!transparent.contains(material)) {
-				break;
-			}
+            Material material = block.getType();
+            if (transparent.contains(material)) {
+                continue;
+            }
+            blocks.add(block);
+			break;
 		}
 		return blocks;
 	}
@@ -62,24 +63,31 @@ public class ListenerUtilities {
 	 * @param loc The {@link Location} representing the origin to search from
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
+	
 	public static Player getNearestQualifiedPlayer(Location loc) {
 		return loc.getWorld().getPlayers().stream().sorted((o1, o2) ->
 				Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc))
 		).filter( p -> {
 			if(p.getLocation().distanceSquared(loc)< 128*128) {
-				return !(shouldCancel(p.getEyeLocation(), loc));
+				return !(shouldCancel1(p.getEyeLocation(), loc));
 			}
 			return false;
-		}).findAny().orElse(null);
+		}).filter(p -> !(shouldCancel2(p.getEyeLocation(), loc))).findAny().orElse(null);
 	}
 
-	public static Boolean shouldCancel(Location origin, Location target) {
-		if(EntityOnView.realistic && isLookingTowards(origin, target, 150, 110))
-		{
+	public static Boolean shouldCancel1(Location origin, Location target) {
+		if(!EntityOnView.realistic)
 			return false;
+		if(isLookingTowards(origin, target, 150, 110))
+			return false;
+		return true;
+	}
+	
+	public static Boolean shouldCancel2(Location origin, Location target) {
+		if (!(canSee(origin, target))) {
+			return true;
 		}
-
-		return !(canSee(origin, target));
+		return false;
 	}
 	
 	public static boolean isLookingTowards(Location origin, Location target, float yawLimit, float pitchLimit) {
