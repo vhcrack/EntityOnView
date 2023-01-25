@@ -22,7 +22,7 @@ public class EntityOnView extends JavaPlugin{
 		config = yamlWrapper.getConfig();
 		
 		config.getStringList("transparent-blocks").forEach(string -> transparentBlocks.add(Material.valueOf(string)));
-		realistic = config.getBoolean("realistic");
+		realistic = config.getBoolean("realistic"); 
 		
 		getServer().getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
 	}

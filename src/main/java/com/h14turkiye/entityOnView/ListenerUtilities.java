@@ -63,7 +63,7 @@ public class ListenerUtilities {
 	 * @param loc The {@link Location} representing the origin to search from
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
-	
+	  
 	public static Player getNearestQualifiedPlayer(Location loc) {
 		return loc.getWorld().getPlayers().stream().sorted((o1, o2) ->
 				Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc))

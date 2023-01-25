@@ -30,7 +30,7 @@ public class CreatureSpawnListener implements Listener{
 		this.plugin = plugin;
 		config = plugin.getConfig();
 		debug = config.getBoolean("debug");
-		
+		 
 		config.getStringList("cancel-spawn").forEach(string -> cancelSpawn.add(EntityType.valueOf(string)));
 	}
 
