@@ -27,18 +27,17 @@ public class PreCreatureSpawnListener implements Listener{
 	private Set<EntityType> cancelSpawn = new HashSet<>();
 	private Set<Material> transparentBlocks = new HashSet<>();
 	
-	private int maxDistance;
-	private int maxDistanceSquared;
+	private int radius;
 
 	public PreCreatureSpawnListener(EntityOnView plugin) {
 		config = plugin.getConfig();
 		debug = config.getBoolean("debug");
-		useTransparencyCheck = config.getBoolean("useTransparencyCheck");
-		maxDistance = config.getInt("maxDistance");
-		maxDistanceSquared = maxDistance*maxDistance;
+		useTransparencyCheck = config.getBoolean("transparency.enabled");
+		radius = config.getInt("radius");
+		radius = radius*radius;
 		 
-		config.getStringList("cancel-spawn").forEach(string -> cancelSpawn.add(EntityType.valueOf(string)));
-		config.getStringList("transparent-blocks").forEach(string -> transparentBlocks.add(Material.valueOf(string)));
+		config.getStringList("cancelSpawn").forEach(string -> cancelSpawn.add(EntityType.valueOf(string)));
+		config.getStringList("transparency.transparentBlocks").forEach(string -> transparentBlocks.add(Material.valueOf(string)));
 	}
 	
 	@EventHandler
@@ -48,9 +47,9 @@ public class PreCreatureSpawnListener implements Listener{
 			Player nearestQualifiedPlayer;
 			
 			if(useTransparencyCheck)
-				nearestQualifiedPlayer = ListenerUtilities.getNearestQualifiedPlayer(location, maxDistanceSquared, transparentBlocks);
+				nearestQualifiedPlayer = ListenerUtilities.getNearestQualifiedPlayer(location, radius, transparentBlocks);
 			else
-				nearestQualifiedPlayer = ListenerUtilities.getNearestQualifiedPlayer(location, maxDistanceSquared);
+				nearestQualifiedPlayer = ListenerUtilities.getNearestQualifiedPlayer(location, radius);
 
 			if(nearestQualifiedPlayer == null) {
 				event.setCancelled(true);

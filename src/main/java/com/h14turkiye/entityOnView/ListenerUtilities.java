@@ -28,12 +28,8 @@ public class ListenerUtilities {
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
 	public static Player getNearestQualifiedPlayer(Location loc, int maxDistanceSquared) {
-		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)));
-		sortedByNearestPlayers = sortedByNearestPlayers.filter(p -> ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110));
-		
-		return sortedByNearestPlayers.findAny().orElse(null);
+		return getNearestQualifiedPlayer(loc, maxDistanceSquared, null);
 	}
-	
 
 	/**
 	 * Returns the closest qualified {@link Player} to a specific {@link Location}

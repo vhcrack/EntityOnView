@@ -1,70 +1,70 @@
-# This sets the radius for checking players around the spawn location. The maximum value for this parameter is 128.
-radius: 80
-
-# Determines whether to use block transparency to filter out non-visible entities. HEAVY.
-useTransparencyCheck: true
-
-# Determines whether to use Paper's preCreatureSpawnEvent. It is not recommended to use this option in conjunction with useTransparencyCheck if you have a large player base (more than 12 players).
-usePaperPreCreatureSpawnEvent: false
-
 # Enable debug logging.
 debug: false
 
-# List of transparent blocks that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
-transparentBlocks:
-  - AIR
-  - CAVE_AIR
-  - VOID_AIR
-  - WATER
-  - TRIPWIRE
-  - TRIPWIRE_HOOK
-  - GLASS
-  - WHITE_STAINED_GLASS
-  - WHITE_STAINED_GLASS_PANE
-  - RED_STAINED_GLASS
-  - RED_STAINED_GLASS_PANE
-  - ORANGE_STAINED_GLASS
-  - ORANGE_STAINED_GLASS_PANE
-  - PINK_STAINED_GLASS
-  - PINK_STAINED_GLASS_PANE
-  - YELLOW_STAINED_GLASS
-  - YELLOW_STAINED_GLASS_PANE
-  - LIME_STAINED_GLASS
-  - LIME_STAINED_GLASS_PANE
-  - GREEN_STAINED_GLASS
-  - GREEN_STAINED_GLASS_PANE
-  - LIGHT_BLUE_STAINED_GLASS
-  - LIGHT_BLUE_STAINED_GLASS_PANE
-  - CYAN_STAINED_GLASS
-  - CYAN_STAINED_GLASS_PANE
-  - BLUE_STAINED_GLASS
-  - BLUE_STAINED_GLASS_PANE
-  - MAGENTA_STAINED_GLASS
-  - MAGENTA_STAINED_GLASS_PANE
-  - PURPLE_STAINED_GLASS
-  - PURPLE_STAINED_GLASS_PANE
-  - BROWN_STAINED_GLASS
-  - BROWN_STAINED_GLASS_PANE
-  - GRAY_STAINED_GLASS
-  - GRAY_STAINED_GLASS_PANE
-  - LIGHT_GRAY_STAINED_GLASS
-  - LIGHT_GRAY_STAINED_GLASS_PANE
-  - BLACK_STAINED_GLASS
-  - BLACK_STAINED_GLASS_PANE
-  - TORCH
-  - REDSTONE_TORCH
-  - REDSTONE_WIRE
-  - CAVE_VINES
-  - CAVE_VINES_PLANT
-  - TWISTING_VINES
-  - TWISTING_VINES_PLANT
-  - VINE
-  - WEEPING_VINES
-  - WEEPING_VINES_PLANT
-  - SUGAR_CANE
-  - GRASS_BLOCK
-  - GRASS
+# This sets the radius for checking players around the spawn location. The maximum value for this parameter is 128.
+radius: 80
+
+# Determines whether to use Paper's preCreatureSpawnEvent. It is not recommended to use this option in conjunction with transparency enabled if you have a large player base (more than 12 players).
+usePaperPreCreatureSpawnEvent: false
 
 # List of entity types for which to cancel spawn events.
 cancelSpawn:
   - ZOMBIE
+
+# Determines whether to use block transparency to filter out non-visible entities. HEAVY.
+transparency:
+  enabled: true
+   # List of transparent blocks that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
+  transparentBlocks:
+    - AIR
+    - CAVE_AIR
+    - VOID_AIR
+    - WATER
+    - TRIPWIRE
+    - TRIPWIRE_HOOK
+    - GLASS
+    - WHITE_STAINED_GLASS
+    - WHITE_STAINED_GLASS_PANE
+    - RED_STAINED_GLASS
+    - RED_STAINED_GLASS_PANE
+    - ORANGE_STAINED_GLASS
+    - ORANGE_STAINED_GLASS_PANE
+    - PINK_STAINED_GLASS
+    - PINK_STAINED_GLASS_PANE
+    - YELLOW_STAINED_GLASS
+    - YELLOW_STAINED_GLASS_PANE
+    - LIME_STAINED_GLASS
+    - LIME_STAINED_GLASS_PANE
+    - GREEN_STAINED_GLASS
+    - GREEN_STAINED_GLASS_PANE
+    - LIGHT_BLUE_STAINED_GLASS
+    - LIGHT_BLUE_STAINED_GLASS_PANE
+    - CYAN_STAINED_GLASS
+    - CYAN_STAINED_GLASS_PANE
+    - BLUE_STAINED_GLASS
+    - BLUE_STAINED_GLASS_PANE
+    - MAGENTA_STAINED_GLASS
+    - MAGENTA_STAINED_GLASS_PANE
+    - PURPLE_STAINED_GLASS
+    - PURPLE_STAINED_GLASS_PANE
+    - BROWN_STAINED_GLASS
+    - BROWN_STAINED_GLASS_PANE
+    - GRAY_STAINED_GLASS
+    - GRAY_STAINED_GLASS_PANE
+    - LIGHT_GRAY_STAINED_GLASS
+    - LIGHT_GRAY_STAINED_GLASS_PANE
+    - BLACK_STAINED_GLASS
+    - BLACK_STAINED_GLASS_PANE
+    - TORCH
+    - REDSTONE_TORCH
+    - REDSTONE_WIRE
+    - CAVE_VINES
+    - CAVE_VINES_PLANT
+    - TWISTING_VINES
+    - TWISTING_VINES_PLANT
+    - VINE
+    - WEEPING_VINES
+    - WEEPING_VINES_PLANT
+    - SUGAR_CANE
+    - GRASS_BLOCK
+    - GRASS
