@@ -14,7 +14,7 @@ cancelSpawn:
 # Determines whether to use block transparency to filter out non-visible entities. HEAVY.
 transparency:
   enabled: true
-   # List of transparent blocks that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
+  # List of transparent blocks that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
   transparentBlocks:
     - AIR
     - CAVE_AIR

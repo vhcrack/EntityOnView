@@ -53,10 +53,10 @@ public class ListenerUtilities {
 	 * @return Blocks between locations.
 	 */
 	public static List<Block> getLineOfSight(Set<Material> transparent, Location origin, Location target) {
-		if (transparent == null) {
-			transparent = Sets.newHashSet(Material.AIR, Material.CAVE_AIR, Material.VOID_AIR);
-		}
 		ArrayList<Block> blocks = new ArrayList<>();
+		if (transparent == null) {
+			return blocks;
+		}
 		Iterator<Block> itr = new BlockIterator(target.getWorld(), origin.clone().add(0, -2, 0).toVector(), target.clone().toVector().subtract(origin.clone().add(0, -2, 0).toVector()).normalize(), 2, 120);
 		while (itr.hasNext()) {
 			Block block = itr.next();
