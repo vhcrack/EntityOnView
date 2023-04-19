@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.h14turkiye.entityOnView.library.YamlWrapper;
 import com.h14turkiye.entityOnView.listeners.CreatureSpawnListener;
+import com.h14turkiye.entityOnView.listeners.PreCreatureSpawnListener;
 
 public class EntityOnView extends JavaPlugin{
 	private FileConfiguration config;
@@ -14,7 +15,10 @@ public class EntityOnView extends JavaPlugin{
 		YamlWrapper yamlWrapper = new YamlWrapper(this, getDataFolder(), "config", true, true);    
 		config = yamlWrapper.getConfig();
 		
-		getServer().getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
+		if(config.getBoolean("usePaperPreCreatureSpawnEvent"))
+			getServer().getPluginManager().registerEvents(new PreCreatureSpawnListener(this), this);
+		else
+			getServer().getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
 	}
 	
 	@Override

@@ -11,13 +11,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
+import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
 import com.h14turkiye.entityOnView.EntityOnView;
 import com.h14turkiye.entityOnView.ListenerUtilities;
 
-public class CreatureSpawnListener implements Listener{
+public class PreCreatureSpawnListener implements Listener{
 
 	private FileConfiguration config;
 	
@@ -30,7 +30,7 @@ public class CreatureSpawnListener implements Listener{
 	private int maxDistance;
 	private int maxDistanceSquared;
 
-	public CreatureSpawnListener(EntityOnView plugin) {
+	public PreCreatureSpawnListener(EntityOnView plugin) {
 		config = plugin.getConfig();
 		debug = config.getBoolean("debug");
 		useTransparencyCheck = config.getBoolean("useTransparencyCheck");
@@ -42,9 +42,9 @@ public class CreatureSpawnListener implements Listener{
 	}
 	
 	@EventHandler
-	public void spawnEventNatural(CreatureSpawnEvent event) {
-		if(event.getSpawnReason().equals(SpawnReason.NATURAL) && cancelSpawn.contains(event.getEntityType())) {
-			Location location = event.getLocation();
+	public void spawnEventNatural(PreCreatureSpawnEvent event) {
+		if(event.getReason().equals(SpawnReason.NATURAL) && cancelSpawn.contains(event.getType())) {
+			Location location = event.getSpawnLocation();
 			Player nearestQualifiedPlayer;
 			
 			if(useTransparencyCheck)

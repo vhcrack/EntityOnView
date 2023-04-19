@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
@@ -18,26 +20,48 @@ public class ListenerUtilities {
 	private ListenerUtilities() {
 	    throw new IllegalStateException("Utility class");
 	  }
+	
 
+	/**
+	 * Returns the closest qualified {@link Player} to a specific {@link Location}
+	 * @param loc The {@link Location} representing the origin to search from
+	 * @return The closest qualified {@link Player}, or {@code null}
+	 */
+	public static Player getNearestQualifiedPlayer(Location loc, int maxDistanceSquared) {
+		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)));
+		sortedByNearestPlayers = sortedByNearestPlayers.filter(p -> ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110));
+		
+		return sortedByNearestPlayers.findAny().orElse(null);
+	}
+	
+
+	/**
+	 * Returns the closest qualified {@link Player} to a specific {@link Location}
+	 * @param loc The {@link Location} representing the origin to search from
+	 * @return The closest qualified {@link Player}, or {@code null}
+	 */
+	public static Player getNearestQualifiedPlayer(Location loc, int maxDistanceSquared, Set<Material> transparentBlocks) {
+		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)));
+		sortedByNearestPlayers = sortedByNearestPlayers.filter(p ->  ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110));
+		sortedByNearestPlayers = sortedByNearestPlayers.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty());
+		
+		return sortedByNearestPlayers.findAny().orElse(null);
+	}
 	
 	/**
 	 * @see CraftLivingEntity.java
 	 * 
 	 * @param transparent
-	 * @param maxDistance
 	 * @param origin The {@link Location} representing the origin
 	 * @param target The {@link Location} representing the target
 	 * @return Blocks between locations.
 	 */
-	public static List<Block> getLineOfSight(Set<Material> transparent, int maxDistance, Location origin, Location target) {
+	public static List<Block> getLineOfSight(Set<Material> transparent, Location origin, Location target) {
 		if (transparent == null) {
 			transparent = Sets.newHashSet(Material.AIR, Material.CAVE_AIR, Material.VOID_AIR);
 		}
-		if (maxDistance > 120) {
-			maxDistance = 120;
-		}
 		ArrayList<Block> blocks = new ArrayList<>();
-		Iterator<Block> itr = new BlockIterator(target.getWorld(), origin.clone().add(0, -2, 0).toVector(), target.clone().toVector().subtract(origin.clone().add(0, -2, 0).toVector()).normalize(), 2, maxDistance);
+		Iterator<Block> itr = new BlockIterator(target.getWorld(), origin.clone().add(0, -2, 0).toVector(), target.clone().toVector().subtract(origin.clone().add(0, -2, 0).toVector()).normalize(), 2, 120);
 		while (itr.hasNext()) {
 			Block block = itr.next();
             Material material = block.getType();
