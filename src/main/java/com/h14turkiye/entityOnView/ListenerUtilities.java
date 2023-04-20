@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -39,7 +37,7 @@ public class ListenerUtilities {
 		.filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
 		.sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)))
 		.filter(p ->  ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110))
-		.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty()).collect(Collectors.toList());
+		.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty()).toList();
 		
 		return !sortedByNearestPlayers.isEmpty() ? sortedByNearestPlayers.get(0) : null;
 	}
