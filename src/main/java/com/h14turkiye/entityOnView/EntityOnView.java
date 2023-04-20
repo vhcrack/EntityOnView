@@ -4,8 +4,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.h14turkiye.entityOnView.library.YamlWrapper;
-import com.h14turkiye.entityOnView.listeners.CreatureSpawnListener;
-import com.h14turkiye.entityOnView.listeners.PreCreatureSpawnListener;
+import com.h14turkiye.entityOnView.listener.CreatureSpawnListener;
+import com.h14turkiye.entityOnView.listener.PreCreatureSpawnListener;
 
 public class EntityOnView extends JavaPlugin{
 	private FileConfiguration config;

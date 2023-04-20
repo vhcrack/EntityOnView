@@ -13,15 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
-import com.google.common.collect.Sets;
-
 public class ListenerUtilities {
 	
 	private ListenerUtilities() {
 	    throw new IllegalStateException("Utility class");
 	  }
-	
-
+		
 	/**
 	 * Returns the closest qualified {@link Player} to a specific {@link Location}
 	 * @param loc The {@link Location} representing the origin to search from
@@ -37,9 +34,9 @@ public class ListenerUtilities {
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
 	public static Player getNearestQualifiedPlayer(Location loc, int maxDistanceSquared, Set<Material> transparentBlocks) {
-		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)));
-		sortedByNearestPlayers = sortedByNearestPlayers.filter(p ->  ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110));
-		sortedByNearestPlayers = sortedByNearestPlayers.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty());
+		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)))
+		.filter(p ->  ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110))
+		.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty());
 		
 		return sortedByNearestPlayers.findAny().orElse(null);
 	}
