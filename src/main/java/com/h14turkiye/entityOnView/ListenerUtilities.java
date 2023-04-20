@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.bukkit.Location;
@@ -34,13 +35,13 @@ public class ListenerUtilities {
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
 	public static Player getNearestQualifiedPlayer(Location loc, int maxDistanceSquared, Set<Material> transparentBlocks) {
-		Stream<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream()
+		List<Player> sortedByNearestPlayers = loc.getWorld().getPlayers().stream()
 		.filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
 		.sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)))
 		.filter(p ->  ListenerUtilities.isLookingTowards(p.getEyeLocation(), loc, 150, 110))
-		.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty());
+		.filter(p -> ListenerUtilities.getLineOfSight(transparentBlocks, p.getEyeLocation(), loc).isEmpty()).collect(Collectors.toList());
 		
-		return sortedByNearestPlayers.findAny().orElse(null);
+		return !sortedByNearestPlayers.isEmpty() ? sortedByNearestPlayers.get(0) : null;
 	}
 	
 	/**
